@@ -1,0 +1,199 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id'dagger.hilt.android.plugin'
+    id 'kotlin-android-extensions'
+    id'androidx.navigation.safeargs'
+
+}
+
+android {
+    compileSdk 30
+
+    defaultConfig {
+        applicationId "com.noweto.moviemix"
+        minSdk 21
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {configuration ->
+
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    setupCustomLib(configuration)
+    setupNavigation(configuration)
+    setupNavigation(configuration)
+    setupCustomLib(configuration)
+    setupRetrofit(configuration)
+    setupViewModel(configuration)
+    setupKotlinCoroutines(configuration)
+    setupRoom(configuration)
+    setupHilt(configuration)
+}
+private static setupHilt(configuration) {
+    def hilt_version ='2.35'
+    def hilt_lifecycle_viewmodel = "1.0.0-alpha01"
+
+    configuration.implementation"com.google.dagger:hilt-android:$hilt_version"
+    configuration.kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+    configuration.kapt"com.google.dagger:hilt-android-compiler:$hilt_version"
+    configuration.implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01"
+    configuration.kapt "androidx.hilt:hilt-compiler:$hilt_lifecycle_viewmodel"
+
+
+}
+
+private static void setupCustomLib(configuration) {
+    // Android SDK Libraries
+    configuration.implementation 'androidx.appcompat:appcompat:1.1.0'
+    configuration.implementation 'androidx.core:core-ktx:1.2.0'
+    configuration.implementation "com.google.android.material:material:1.2.1"
+    configuration.implementation "com.google.android.material:material:1.3.0-alpha03"
+    configuration.implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    // Gson
+    configuration.implementation "com.google.code.gson:gson:2.8.6"
+    // Glide
+    configuration.implementation 'com.github.bumptech.glide:glide:4.10.0'
+    //lottie
+    configuration.implementation "com.airbnb.android:lottie:3.6.0"
+    //Circular image
+    configuration.implementation 'de.hdodenhof:circleimageview:3.1.0'
+}
+
+
+private static setupNavigation(configuration) {
+    def nav_version = "2.3.5"
+
+    // Java language implementation
+    configuration.implementation("androidx.navigation:navigation-fragment:$nav_version")
+    configuration.implementation("androidx.navigation:navigation-ui:$nav_version")
+
+    // Kotlin
+    configuration.implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    configuration.implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    // Feature module Support
+    configuration.implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+
+    // Testing Navigation
+    configuration.androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
+    // Jetpack Compose Integration
+    configuration.implementation("androidx.navigation:navigation-compose:2.4.0-alpha05")
+
+
+
+
+}
+
+private static setupKotlinCoroutines(configuration) {
+    def coroutines_version = "1.3.9"
+    configuration.implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    configuration.implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    configuration.implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+}
+
+private static setupRetrofit(configuration) {
+    def retrofit_version = "2.6.0"
+    configuration.implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    configuration.implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    configuration.implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+}
+
+private static setupViewModel(configuration) {
+
+    def lifecycle_version = "2.4.0-alpha02"
+    def arch_version = "2.1.0"
+
+    // ViewModel
+    configuration.implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    // LiveData
+    configuration.implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    // Lifecycles only (without ViewModel or LiveData)
+    configuration.implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
+
+    // Saved state module for ViewModel
+    configuration.implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
+
+    // Annotation processor
+    configuration.implementation("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    configuration.implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version")
+
+    // optional - helpers for implementing LifecycleOwner in a Service
+    configuration.implementation("androidx.lifecycle:lifecycle-service:$lifecycle_version")
+
+    // optional - ProcessLifecycleOwner provides a lifecycle for the whole application process
+    configuration.implementation("androidx.lifecycle:lifecycle-process:$lifecycle_version")
+    // optional - ReactiveStreams support for LiveData
+    configuration.implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version")
+
+    // optional - Test helpers for LiveData
+    configuration.testImplementation("androidx.arch.core:core-testing:$arch_version")
+    configuration.implementation "androidx.lifecycle:lifecycle-extensions:$arch_version"
+    configuration.implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_version"
+    configuration.annotationProcessor "androidx.lifecycle:lifecycle-compiler:$arch_version"
+
+}
+
+private static setupRoom(configuration) {
+    def room_version = "2.3.0"
+
+    configuration.implementation("androidx.room:room-runtime:$room_version")
+    configuration.annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // To use Kotlin annotation processing tool (kapt)
+    configuration.kapt("androidx.room:room-compiler:$room_version")
+    // To use Kotlin Symbolic Processing (KSP)
+    //configuration.ksp("androidx.room:room-compiler:$room_version")
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    configuration.implementation("androidx.room:room-ktx:$room_version")
+
+    // optional - RxJava2 support for Room
+    configuration.implementation "androidx.room:room-rxjava2:$room_version"
+
+    // optional - RxJava3 support for Room
+    configuration.implementation "androidx.room:room-rxjava3:$room_version"
+
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    configuration.implementation "androidx.room:room-guava:$room_version"
+
+    // optional - Test helpers
+    configuration.testImplementation("androidx.room:room-testing:$room_version")
+    configuration.implementation "androidx.room:room-runtime:$room_version"
+    configuration.implementation "androidx.room:room-ktx:$room_version"
+    configuration.kapt "androidx.room:room-compiler:2.2.1"
+    configuration.implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.0'
+    configuration.implementation("com.squareup.okhttp3:logging-interceptor:3.9.0")
+}
+
+
+

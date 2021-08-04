@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/home_fragment">
+
+    <fragment
+        android:name="com.noweto.moviemix.ui.home.HomeFragment"
+        android:id="@+id/home_fragment"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/from_home_to_details"
+            app:destination="@id/details_fragment"/>
+
+    </fragment>
+
+    <fragment
+        android:name="com.noweto.moviemix.ui.search.SearchFragment"
+        android:id="@+id/search_fragment"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/from_search_to_details"
+            app:destination="@id/details_fragment"/>
+
+    </fragment>
+
+
+    <fragment
+        android:name="com.noweto.moviemix.ui.random.RandomFragment"
+        android:id="@+id/random_fragment"
+        tools:layout="@layout/fragment_random">
+        <action
+            android:id="@+id/from_random_to_details"
+            app:destination="@id/details_fragment"/>
+    </fragment>
+
+    <fragment
+        android:name="com.noweto.moviemix.ui.details.MovieDetailsFragment"
+        android:id="@+id/details_fragment"
+        tools:layout="@layout/fragment_movie_details"/>
+
+
+
+
+</navigation>

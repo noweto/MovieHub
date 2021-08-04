@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MovieMix</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_message">Hello Rania</string>
+    <string name="logo">Just watch !</string>
+    <string name="recommend_movie">Recommend movie </string>
+    <string name="popular">Popular!</string>
+    <string name="search">Search</string>
+</resources>
